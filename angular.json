@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "tsedalu-gebeyehu-app": {
+    "tsedalugebeyehu": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "tsedalu-gebeyehu-app:build:production"
+              "buildTarget": "tsedalugebeyehu:build:production"
             },
             "development": {
-              "buildTarget": "tsedalu-gebeyehu-app:build:development"
+              "buildTarget": "tsedalugebeyehu:build:development"
             }
           },
           "defaultConfiguration": "development"
