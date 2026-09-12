@@ -1,25 +1,30 @@
 import { Routes } from '@angular/router';
+import { Home } from './pages/home/home';
+import { Blog } from './pages/blog/blog';
+import { BlogCategory } from './pages/blog-category/blog-category';
+import { Exercise } from './pages/exercise/exercise';
+import { Training } from './pages/training/training';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/home/home').then((m) => m.Home),
+    component: Home,
   },
   {
     path: 'blog',
-    loadComponent: () => import('./pages/blog/blog').then((m) => m.Blog),
+    component: Blog,
   },
   {
     path: 'blog/:category',
-    loadComponent: () => import('./pages/blog-category/blog-category').then((m) => m.BlogCategory),
+    component: BlogCategory,
   },
   {
     path: 'exercise',
-    loadComponent: () => import('./pages/exercise/exercise').then((m) => m.Exercise),
+    component: Exercise,
   },
   {
     path: 'exercise/:category',
-    loadComponent: () => import('./pages/training/training').then((m) => m.Training),
+    component: Training,
   },
   {
     path: '**',
