@@ -1,0 +1,38 @@
+<section class="training-hero">
+  <div class="page-container">
+    <span class="eyebrow"> TRAINING </span>
+
+    <h1>Exercise & Running</h1>
+
+    <p>Running programs, race goals, strength workouts and current training plans.</p>
+  </div>
+</section>
+
+<section class="training-content">
+  <div class="page-container">
+    <div class="training-grid">
+      @for (category of categories; track category.id) {
+        <a class="training-card portifolio-cards" [routerLink]="['/exercise', category.id]">
+          <div class="training-icon">
+            {{ category.icon }}
+          </div>
+
+          <h2>
+            {{ category.title }}
+          </h2>
+
+          <p>
+            {{ category.description }}
+          </p>
+
+          <span>
+            {{ category.plans.length }}
+            training plans
+          </span>
+
+          <strong> View training → </strong>
+        </a>
+      }
+    </div>
+  </div>
+</section>

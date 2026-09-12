@@ -1,0 +1,155 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a routerLink="/" class="brand" (click)="closeMenus()">
+      <span class="brand-mark">TG</span>
+
+      <span class="brand-content">
+        <strong>Tsedalu Gebeyehu</strong>
+        <small>Senior Software Engineer</small>
+      </span>
+    </a>
+
+    <button
+      class="mobile-toggle"
+      type="button"
+      aria-label="Toggle navigation"
+      (click)="toggleMobile()"
+    >
+      @if (!mobileOpen()) {
+        <span>☰</span>
+      } @else {
+        <span>✕</span>
+      }
+    </button>
+
+    <nav class="main-nav" [class.open]="mobileOpen()">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMenus()"
+      >
+        Home
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/tsedalugebeyehu"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
+        <span class="external-icon">↗</span>
+      </a>
+
+      <div class="nav-dropdown">
+        <button
+          class="dropdown-trigger"
+          type="button"
+          (click)="toggleBlog(); $event.stopPropagation()"
+        >
+          Blogs
+
+          <span class="chevron" [class.rotate]="blogOpen()"> ▾ </span>
+        </button>
+
+        @if (blogOpen()) {
+          <div class="dropdown-menu blog-menu">
+            <div class="menu-group">
+              <span class="menu-title"> Frontend </span>
+
+              <a routerLink="/blog/frontend" (click)="closeMenus()"> Frontend Overview </a>
+
+              <a routerLink="/blog/html" (click)="closeMenus()"> HTML </a>
+
+              <a routerLink="/blog/css" (click)="closeMenus()"> CSS / SCSS </a>
+
+              <a routerLink="/blog/javascript" (click)="closeMenus()"> JavaScript </a>
+
+              <a routerLink="/blog/typescript" (click)="closeMenus()"> TypeScript </a>
+
+              <a routerLink="/blog/angular" (click)="closeMenus()"> Angular </a>
+            </div>
+
+            <div class="menu-group">
+              <span class="menu-title"> Backend </span>
+
+              <a routerLink="/blog/java" (click)="closeMenus()"> Java </a>
+
+              <a routerLink="/blog/spring" (click)="closeMenus()"> Spring Boot </a>
+
+              <a routerLink="/blog/database" (click)="closeMenus()"> Database </a>
+            </div>
+
+            <div class="menu-group">
+              <span class="menu-title"> Development </span>
+
+              <a routerLink="/blog/linux" (click)="closeMenus()"> Linux </a>
+
+              <a routerLink="/blog/devops" (click)="closeMenus()"> DevOps </a>
+
+              <a routerLink="/blog/others" (click)="closeMenus()"> Others </a>
+            </div>
+
+            <a routerLink="/blog" class="view-all" (click)="closeMenus()"> View all articles → </a>
+          </div>
+        }
+      </div>
+
+      <div class="nav-dropdown">
+        <button
+          class="dropdown-trigger"
+          type="button"
+          (click)="toggleExercise(); $event.stopPropagation()"
+        >
+          Exercise
+
+          <span class="chevron" [class.rotate]="exerciseOpen()"> ▾ </span>
+        </button>
+
+        @if (exerciseOpen()) {
+          <div class="dropdown-menu exercise-menu">
+            <a routerLink="/exercise/running" (click)="closeMenus()">
+              <span class="menu-icon">🏃</span>
+
+              <span>
+                <strong>Running</strong>
+                <small>5K, 10K & half marathon</small>
+              </span>
+            </a>
+
+            <a routerLink="/exercise/daily" (click)="closeMenus()">
+              <span class="menu-icon">📅</span>
+
+              <span>
+                <strong>Daily Training</strong>
+                <small>Current workouts</small>
+              </span>
+            </a>
+
+            <a routerLink="/exercise/new-training" (click)="closeMenus()">
+              <span class="menu-icon">🔥</span>
+
+              <span>
+                <strong>New Training</strong>
+                <small>Latest plans</small>
+              </span>
+            </a>
+
+            <a routerLink="/exercise/strength" (click)="closeMenus()">
+              <span class="menu-icon">🏋️</span>
+
+              <span>
+                <strong>Strength</strong>
+                <small>Muscle & conditioning</small>
+              </span>
+            </a>
+
+            <a routerLink="/exercise" class="view-all" (click)="closeMenus()">
+              View all training →
+            </a>
+          </div>
+        }
+      </div>
+    </nav>
+  </div>
+</header>

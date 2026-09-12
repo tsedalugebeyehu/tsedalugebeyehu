@@ -1,0 +1,43 @@
+<section class="blog-hero">
+  <div class="page-container">
+    <span class="eyebrow"> DEVELOPMENT NOTES </span>
+
+    <h1>Engineering Blog</h1>
+
+    <p>
+      Tutorials, notes and practical examples covering frontend development, Java, Spring,
+      databases, Linux and other software engineering topics.
+    </p>
+  </div>
+</section>
+
+<section class="blog-content">
+  <div class="page-container">
+    <div class="category-grid">
+      @for (category of categories; track category.id) {
+        <a class="category-card portifolio-cards" [routerLink]="['/blog', category.id]">
+          <div class="category-icon">
+            {{ category.icon }}
+          </div>
+
+          <div class="category-body">
+            <h2>
+              {{ category.name }}
+            </h2>
+
+            <p>
+              {{ category.description }}
+            </p>
+
+            <div class="topic-count">
+              {{ category.topics.length }}
+              topics
+            </div>
+          </div>
+
+          <span class="arrow"> → </span>
+        </a>
+      }
+    </div>
+  </div>
+</section>

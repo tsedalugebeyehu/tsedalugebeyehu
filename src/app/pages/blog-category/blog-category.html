@@ -1,0 +1,49 @@
+@if (category(); as category) {
+  <section class="category-header">
+    <div class="page-container">
+      <a routerLink="/blog" class="back-link"> ← All Blogs </a>
+
+      <div class="category-icon">
+        {{ category.icon }}
+      </div>
+
+      <h1>
+        {{ category.name }}
+      </h1>
+
+      <p>
+        {{ category.description }}
+      </p>
+    </div>
+  </section>
+
+  <section class="topic-section">
+    <div class="page-container">
+      <h2>Articles & Tutorials</h2>
+
+      <div class="topic-grid">
+        @for (topic of category.topics; track topic.id) {
+          <article class="topic-card portifolio-cards">
+            <span class="topic-type"> TUTORIAL </span>
+
+            <h3>
+              {{ topic.title }}
+            </h3>
+
+            <p>
+              {{ topic.description }}
+            </p>
+
+            <a href="#"> Read article → </a>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="not-found">
+    <h1>Blog category not found.</h1>
+
+    <a routerLink="/blog"> Return to Blogs </a>
+  </section>
+}

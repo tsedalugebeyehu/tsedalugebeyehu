@@ -1,0 +1,49 @@
+@if (category(); as category) {
+  <section class="training-header">
+    <div class="page-container">
+      <a routerLink="/exercise" class="back-link"> ← Exercise </a>
+
+      <div class="icon">
+        {{ category.icon }}
+      </div>
+
+      <h1>
+        {{ category.title }}
+      </h1>
+
+      <p>
+        {{ category.description }}
+      </p>
+    </div>
+  </section>
+
+  <section class="plan-section">
+    <div class="page-container">
+      <div class="plan-grid">
+        @for (plan of category.plans; track plan.title) {
+          <article class="plan-card portifolio-cards">
+            <div class="plan-top">
+              <span>
+                {{ plan.type }}
+              </span>
+
+              <small>
+                {{ plan.level }}
+              </small>
+            </div>
+
+            <h2>
+              {{ plan.title }}
+            </h2>
+
+            <p>
+              {{ plan.description }}
+            </p>
+
+            <button type="button">View Plan</button>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+}

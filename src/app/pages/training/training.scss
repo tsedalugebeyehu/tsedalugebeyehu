@@ -1,0 +1,137 @@
+.training-header {
+    padding: 65px 0;
+
+    color: white;
+
+    background:
+        linear-gradient(135deg,
+            #092f31,
+            #105c5c);
+}
+
+.back-link {
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+    color: #99f6e4;
+
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.icon {
+    width: 52px;
+    height: 52px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255, 255, 255, 0.1);
+
+    font-size: 1.5rem;
+}
+
+.training-header h1 {
+    margin: 18px 0 10px;
+
+    font-size:
+        clamp(2.7rem, 6vw, 4.4rem);
+
+    letter-spacing: -0.045em;
+}
+
+.training-header p {
+    max-width: 650px;
+
+    color: #b5d5d4;
+
+    line-height: 1.65;
+}
+
+.plan-section {
+    padding: 70px 0;
+}
+
+.plan-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+.plan-card {
+    padding: 24px;
+
+    border: 1px solid #e1e8e8;
+    border-radius: 14px;
+
+    background: white;
+}
+
+.plan-top {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.plan-top span,
+.plan-top small {
+    color: #0f766e;
+
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+.plan-card h2 {
+    margin: 18px 0 8px;
+
+    color: #213c3e;
+    font-size: 1rem;
+}
+
+.plan-card p {
+    min-height: 60px;
+
+    color: #728588;
+
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+.plan-card button {
+    margin-top: 18px;
+    padding: 9px 13px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #0f766e;
+    color: white;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+@media (max-width: 850px) {
+
+    .plan-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .plan-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
