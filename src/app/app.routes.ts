@@ -1,33 +1,38 @@
-import { Routes } from '@angular/router';
-import { Home } from './pages/home/home';
-import { Blog } from './pages/blog/blog';
-import { BlogCategory } from './pages/blog-category/blog-category';
-import { Exercise } from './pages/exercise/exercise';
-import { Training } from './pages/training/training';
+import { Routes } from "@angular/router";
+import { Home } from "./pages/home/home";
+import { Blog } from "./pages/blog/blog";
+import { BlogCategory } from "./pages/blog-category/blog-category";
+import { Exercise } from "./pages/exercise/exercise";
+import { Training } from "./pages/training/training";
+import { DailyTraining } from "./pages/exercise/daily-training/daily-training";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: Home,
   },
   {
-    path: 'blog',
+    path: "blog",
     component: Blog,
   },
   {
-    path: 'blog/:category',
+    path: "blog/:category",
     component: BlogCategory,
   },
   {
-    path: 'exercise',
+    path: "exercise",
     component: Exercise,
   },
   {
-    path: 'exercise/:category',
+    path: "exercise/:category",
     component: Training,
   },
   {
-    path: '**',
-    redirectTo: '',
+    path: "exercise/daily/workout",
+    component: DailyTraining,
+  },
+  {
+    path: "**",
+    redirectTo: "",
   },
 ];

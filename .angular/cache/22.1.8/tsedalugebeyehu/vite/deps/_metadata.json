@@ -1,0 +1,66 @@
+{
+  "hash": "15136504",
+  "configHash": "44474ed8",
+  "lockfileHash": "eb20fcb2",
+  "browserHash": "66d33196",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "0eb8dda6",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "dc3b7dd8",
+      "needsInterop": false
+    },
+    "@angular/core/rxjs-interop": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/rxjs-interop.mjs",
+      "file": "@angular_core_rxjs-interop.js",
+      "fileHash": "768a4528",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "5e39e222",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "40fcf967",
+      "needsInterop": false
+    },
+    "rxjs/operators": {
+      "src": "../../../../../../node_modules/rxjs/dist/esm5/operators/index.js",
+      "file": "rxjs_operators.js",
+      "fileHash": "a15a3b1c",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "_resource-chunk-OMEHuf3I": {
+      "file": "_resource-chunk-OMEHuf3I.js",
+      "isDynamicEntry": false
+    },
+    "common-8tBHrIJo": {
+      "file": "common-8tBHrIJo.js",
+      "isDynamicEntry": false
+    },
+    "core-3mwNbflS": {
+      "file": "core-3mwNbflS.js",
+      "isDynamicEntry": false
+    },
+    "operators-Dc3sGQyJ": {
+      "file": "operators-Dc3sGQyJ.js",
+      "isDynamicEntry": false
+    },
+    "platform-browser-YtSSRrNl": {
+      "file": "platform-browser-YtSSRrNl.js",
+      "isDynamicEntry": false
+    }
+  }
+}

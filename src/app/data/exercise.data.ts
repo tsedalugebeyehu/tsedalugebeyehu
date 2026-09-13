@@ -11,6 +11,7 @@ export interface TrainingPlan {
   description: string;
   level: string;
   type: string;
+  route: string;
 }
 
 export const TRAINING_CATEGORIES: TrainingCategory[] = [
@@ -25,36 +26,42 @@ export const TRAINING_CATEGORIES: TrainingCategory[] = [
         description: 'Speed-focused 5K training program.',
         level: 'Advanced',
         type: 'Outdoor / Treadmill',
+        route: '5k'
       },
       {
         title: '5K Under 20 — Treadmill',
         description: 'Treadmill-specific sub-20 minute 5K training.',
         level: 'Advanced',
         type: 'Treadmill',
+        route: '5k'
       },
       {
         title: '10K Under 50 Minutes',
         description: 'Structured program targeting a sub-50 10K.',
         level: 'Intermediate',
         type: 'Running',
+        route: '10k'
       },
       {
         title: '10K Under 40 Minutes',
         description: 'Advanced treadmill program targeting sub-40.',
         level: 'Advanced',
         type: 'Treadmill',
+        route: '10k'
       },
       {
         title: 'Half Marathon',
         description: 'Half-marathon endurance and speed training.',
         level: 'Intermediate / Advanced',
         type: 'Running',
+        route: 'half'
       },
       {
         title: '13.1 Mile Treadmill',
         description: 'Half-marathon-specific treadmill program.',
         level: 'Advanced',
         type: 'Treadmill',
+        route: 'half'
       },
     ],
   },
@@ -70,18 +77,21 @@ export const TRAINING_CATEGORIES: TrainingCategory[] = [
         description: 'Current daily exercise routine.',
         level: 'All Levels',
         type: 'Mixed',
+        route: 'workout'
       },
       {
         title: 'Cardio',
         description: 'Cardiovascular conditioning sessions.',
         level: 'All Levels',
         type: 'Cardio',
+        route: 'cardio'
       },
       {
         title: 'Core & Abs',
         description: 'Core-strength and abdominal workouts.',
         level: 'All Levels',
         type: 'Strength',
+        route: 'core'
       },
     ],
   },
@@ -97,6 +107,7 @@ export const TRAINING_CATEGORIES: TrainingCategory[] = [
         description: 'Latest active training program.',
         level: 'Advanced',
         type: 'Mixed',
+        route: 'current'
       },
     ],
   },
@@ -112,12 +123,14 @@ export const TRAINING_CATEGORIES: TrainingCategory[] = [
         description: 'Compound strength and muscle-building program.',
         level: 'Intermediate',
         type: 'Strength',
+        route: 'strength'
       },
       {
         title: 'Runner Strength',
         description: 'Strength training designed to complement running.',
         level: 'Intermediate',
         type: 'Strength',
+        route: 'runner-strength'
       },
     ],
   },
