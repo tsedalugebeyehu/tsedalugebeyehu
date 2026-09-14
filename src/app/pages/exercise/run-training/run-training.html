@@ -1,0 +1,172 @@
+<section class="run-page">
+  <div class="run-container">
+    <!-- ========================================
+         PAGE HEADER
+         ======================================== -->
+
+    <header class="page-header">
+      <span class="eyebrow"> RUNNING TRAINING </span>
+
+      <h1>Running Training Plans</h1>
+
+      <p>
+        Select your race distance and training goal to view the complete workout
+        plan.
+      </p>
+    </header>
+
+    <!-- ========================================
+         DISTANCE TABS
+         ======================================== -->
+
+    <nav class="distance-tabs" aria-label="Running distance">
+      @for ( tab of distanceTabs; track tab.id ) {
+
+      <button
+        type="button"
+        class="distance-tab"
+        [class.active]="
+        selectedDistance() === tab.id
+      "
+        (click)="selectDistance(tab.id)"
+      >
+        <strong> {{ tab.label }} </strong>
+
+        <span> {{ tab.description }} </span>
+      </button>
+
+      }
+    </nav>
+
+    <!-- ========================================
+         PLAN TABS
+         ======================================== -->
+
+    @if (distancePlans().length > 1) {
+
+    <div class="plan-tabs">
+      @for ( plan of distancePlans(); track plan.id ) {
+
+      <button
+        type="button"
+        class="plan-tab"
+        [class.active]="
+          selectedPlanId() === plan.id
+        "
+        (click)="
+          selectPlan(plan.id)
+        "
+      >
+        {{ plan.shortTitle }}
+      </button>
+
+      }
+    </div>
+
+    }
+
+    <!-- ========================================
+         SELECTED PLAN
+         ======================================== -->
+
+    @if (selectedPlan(); as plan) {
+
+    <article class="plan">
+      <!-- SUMMARY -->
+
+      <header class="plan-header">
+        <div class="plan-heading">
+          <span class="plan-type">
+            {{ selectedDistance().toUpperCase() }}
+          </span>
+
+          <h2>{{ plan.title }}</h2>
+
+          <p>{{ plan.description }}</p>
+        </div>
+
+        <div class="plan-stats">
+          <div class="stat">
+            <span> Goal </span>
+
+            <strong> {{ plan.goal }} </strong>
+          </div>
+
+          <div class="stat">
+            <span> Duration </span>
+
+            <strong> {{ plan.duration }} </strong>
+          </div>
+        </div>
+      </header>
+
+      @if (plan.trainingDays) {
+
+      <div class="training-days">
+        <span class="calendar-icon"> ◷ </span>
+
+        <div>
+          <small> Training Schedule </small>
+
+          <strong> {{ plan.trainingDays }} </strong>
+        </div>
+      </div>
+
+      }
+
+      <!-- ========================================
+             TRAINING BLOCKS
+             ======================================== -->
+
+      <div class="training-blocks">
+        @for ( block of plan.blocks; track block.title ) {
+
+        <section class="training-block">
+          <header class="block-header">
+            <div>
+              <h3>{{ block.title }}</h3>
+
+              @if (block.subtitle) {
+
+              <span> {{ block.subtitle }} </span>
+
+              }
+            </div>
+          </header>
+
+          <div class="workouts">
+            @for ( workout of block.workouts; track workout.day ) {
+
+            <article class="workout">
+              <div class="workout-day">
+                <span> {{ workout.day }} </span>
+              </div>
+
+              <div class="workout-content">
+                @if (workout.detail) {
+
+                <span class="workout-type"> {{ workout.detail }} </span>
+
+                }
+
+                <strong> {{ workout.workout }} </strong>
+
+                @if (workout.note) {
+
+                <small> {{ workout.note }} </small>
+
+                }
+              </div>
+            </article>
+
+            }
+          </div>
+        </section>
+
+        }
+      </div>
+    </article>
+
+    }
+  </div>
+</section>

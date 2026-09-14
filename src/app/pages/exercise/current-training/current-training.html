@@ -1,0 +1,382 @@
+<section class="training-page">
+  <div class="training-container">
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <header class="page-header">
+      <span class="eyebrow"> CURRENT PROGRAM </span>
+
+      <h1>Current Strength Training</h1>
+
+      <p>
+        Four-day strength program focusing on push, pull, lower body and core.
+      </p>
+    </header>
+
+    <!-- =========================================
+         STOPWATCH
+         ========================================= -->
+
+    <section class="timer-card">
+      <span class="timer-label"> WORKOUT TIMER </span>
+
+      <div class="timer-display">
+        <div class="time-part">
+          <strong> {{ formattedTime().hours }} </strong>
+
+          <span>HR</span>
+        </div>
+
+        <span class="separator"> : </span>
+
+        <div class="time-part">
+          <strong> {{ formattedTime().minutes }} </strong>
+
+          <span>MIN</span>
+        </div>
+
+        <span class="separator"> : </span>
+
+        <div class="time-part">
+          <strong> {{ formattedTime().seconds }} </strong>
+
+          <span>SEC</span>
+        </div>
+
+        <span class="hundredths"> {{ formattedTime().hundredths }} </span>
+      </div>
+
+      <div class="timer-actions">
+        @if (!running()) {
+
+        <button type="button" class="timer-button start" (click)="startTimer()">
+          ▶ Start
+        </button>
+
+        } @else {
+
+        <button type="button" class="timer-button pause" (click)="stopTimer()">
+          ❚❚ Pause
+        </button>
+
+        }
+
+        <button type="button" class="timer-button reset" (click)="resetTimer()">
+          ↻ Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================
+         DAY TABS
+         ========================================= -->
+
+    <div class="day-tabs-wrapper">
+      <nav class="day-tabs" aria-label="Training days">
+        @for ( day of trainingDays; track day.id; let index = $index ) {
+
+        <button
+          type="button"
+          class="day-tab"
+          [class.active]="
+              selectedDayIndex() ===
+              index
+            "
+          (click)="
+              selectDay(index)
+            "
+        >
+          <span class="day-number"> {{ index + 1 }} </span>
+
+          <span class="day-tab-copy">
+            <strong> {{ day.shortTitle }} </strong>
+
+            <small> {{ day.muscleGroups }} </small>
+          </span>
+        </button>
+
+        }
+      </nav>
+    </div>
+
+    <!-- =========================================
+         CURRENT DAY
+         ========================================= -->
+
+    <section
+      class="workout-card"
+      (touchstart)="
+        onTouchStart($event)
+      "
+      (touchmove)="
+        onTouchMove($event)
+      "
+      (touchend)="
+        onTouchEnd()
+      "
+    >
+      <header class="workout-header">
+        <div>
+          <span class="day-label">
+            DAY {{ selectedDayIndex() + 1 }} OF {{ trainingDays.length }}
+          </span>
+
+          <h2>{{ selectedDay().title }}</h2>
+
+          <p>{{ selectedDay().muscleGroups }}</p>
+        </div>
+
+        <div class="progress-circle">
+          <strong> {{ progressPercent() }}% </strong>
+
+          <span> Complete </span>
+        </div>
+      </header>
+
+      <!-- =========================================
+           PROGRESS
+           ========================================= -->
+
+      <div class="progress-section">
+        <div class="progress-heading">
+          <span> Workout Progress </span>
+
+          <strong> {{ completedCount() }} / {{ totalExercises() }} </strong>
+        </div>
+
+        <div class="progress-track">
+          <div
+            class="progress-fill"
+            [style.width.%]="
+              progressPercent()
+            "
+          ></div>
+        </div>
+      </div>
+
+      <!-- =========================================
+           EXERCISES
+
+           NO GOOGLE IMAGES ARE RENDERED HERE.
+           ========================================= -->
+
+      <div class="exercise-list">
+        @for ( exercise of selectedDay().exercises; track exercise.id; let index
+        = $index ) {
+
+        <article
+          class="exercise-row"
+          [class.completed]="
+              isCompleted(exercise)
+            "
+        >
+          <label
+            class="exercise-check"
+            (click)="
+                $event.stopPropagation()
+              "
+          >
+            <input
+              type="checkbox"
+              [checked]="
+                  isCompleted(exercise)
+                "
+              (change)="
+                  toggleExercise(
+                    exercise,
+                    $any(
+                      $event.target
+                    ).checked
+                  )
+                "
+            />
+
+            <span class="check-box"> ✓ </span>
+          </label>
+
+          <button
+            type="button"
+            class="exercise-content"
+            (click)="
+                openExercise(
+                  exercise
+                )
+              "
+          >
+            <span class="exercise-number"> {{ index + 1 }} </span>
+
+            <span class="exercise-main">
+              <strong> {{ exercise.name }} </strong>
+
+              <span class="exercise-stats">
+                <span>
+                  <small> SETS </small>
+
+                  <b> {{ exercise.sets }} </b>
+                </span>
+
+                <i></i>
+
+                <span>
+                  <small> REPS </small>
+
+                  <b> {{ exercise.reps }} </b>
+                </span>
+              </span>
+            </span>
+
+            @if ( exercise.imageId ) {
+
+            <span class="view-exercise"> View </span>
+
+            <span class="arrow"> › </span>
+
+            }
+          </button>
+        </article>
+
+        }
+      </div>
+
+      <!-- =========================================
+           DAY NAVIGATION
+           ========================================= -->
+
+      <footer class="workout-actions">
+        <button type="button" (click)="previousDay()">← Previous</button>
+
+        <button type="button" class="reset-checks" (click)="resetDay()">
+          Reset Checks
+        </button>
+
+        <button type="button" class="next" (click)="nextDay()">Next →</button>
+      </footer>
+    </section>
+
+    <!-- DOTS -->
+
+    <div class="day-dots">
+      @for ( day of trainingDays; track day.id; let index = $index ) {
+
+      <button
+        type="button"
+        [class.active]="
+            selectedDayIndex() ===
+            index
+          "
+        [attr.aria-label]="
+            'Open ' + day.title
+          "
+        (click)="
+            selectDay(index)
+          "
+      ></button>
+
+      }
+    </div>
+  </div>
+
+  <!-- =========================================
+       EXERCISE IMAGE MODAL
+
+       THIS IS THE ONLY IMG IN THE COMPONENT.
+       ========================================= -->
+
+  @if ( selectedExercise(); as exercise ) {
+
+  <div
+    class="modal-backdrop"
+    (click)="
+        closeExercise()
+      "
+  >
+    <section
+      class="exercise-modal"
+      (click)="
+          $event.stopPropagation()
+        "
+    >
+      <header class="modal-header">
+        <div>
+          <span> EXERCISE </span>
+
+          <h3>{{ exercise.name }}</h3>
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          aria-label="Close exercise"
+          (click)="
+              closeExercise()
+            "
+        >
+          ×
+        </button>
+      </header>
+
+      <div class="image-container">
+        @if ( imageLoading() ) {
+
+        <div class="image-state">
+          <span class="spinner"> </span>
+
+          <p>Loading exercise...</p>
+        </div>
+
+        } @if ( selectedExerciseImage() && !imageError() ) {
+
+        <img
+          [src]="
+                selectedExerciseImage()
+              "
+          [alt]="exercise.name"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+        />
+
+        } @if ( imageError() ) {
+
+        <div class="image-state error">
+          <strong> Image unavailable </strong>
+
+          <p>Google Drive could not load this exercise image.</p>
+
+          <button
+            type="button"
+            (click)="
+                  retryImage()
+                "
+          >
+            Retry
+          </button>
+        </div>
+
+        } @if ( !exercise.imageId ) {
+
+        <div class="image-state">
+          <strong> No exercise image available </strong>
+        </div>
+
+        }
+      </div>
+
+      <div class="modal-details">
+        <div>
+          <span> Sets </span>
+
+          <strong> {{ exercise.sets }} </strong>
+        </div>
+
+        <div>
+          <span> Reps </span>
+
+          <strong> {{ exercise.reps }} </strong>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  }
+</section>

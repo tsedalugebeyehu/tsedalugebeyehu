@@ -1,0 +1,402 @@
+<section class="strength-page">
+  <div class="strength-container">
+    <!-- =====================================
+         HEADER
+         ===================================== -->
+
+    <header class="page-header">
+      <span class="eyebrow"> STRENGTH </span>
+
+      <h1>Strength Training</h1>
+
+      <p>Strength, muscle and conditioning programs.</p>
+    </header>
+
+    <!-- =====================================
+         TIMER
+         ===================================== -->
+
+    <section class="timer-card">
+      <span class="timer-label"> WORKOUT TIMER </span>
+
+      <div class="timer-display">
+        <div class="time-part">
+          <strong> {{ formattedTime().hours }} </strong>
+
+          <span> HR </span>
+        </div>
+
+        <span class="separator"> : </span>
+
+        <div class="time-part">
+          <strong> {{ formattedTime().minutes }} </strong>
+
+          <span> MIN </span>
+        </div>
+
+        <span class="separator"> : </span>
+
+        <div class="time-part">
+          <strong> {{ formattedTime().seconds }} </strong>
+
+          <span> SEC </span>
+        </div>
+
+        <span class="hundredths"> {{ formattedTime().hundredths }} </span>
+      </div>
+
+      <div class="timer-actions">
+        @if (!running()) {
+
+        <button type="button" class="timer-button start" (click)="startTimer()">
+          ▶ Start
+        </button>
+
+        } @else {
+
+        <button type="button" class="timer-button pause" (click)="stopTimer()">
+          ❚❚ Pause
+        </button>
+
+        }
+
+        <button type="button" class="timer-button reset" (click)="resetTimer()">
+          ↻ Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- =====================================
+         PROGRAM TABS
+         ===================================== -->
+
+    <nav class="program-tabs" aria-label="Strength programs">
+      @for ( program of programs; track program.id; let index = $index ) {
+
+      <button
+        type="button"
+        class="program-tab"
+        [class.active]="
+            selectedProgramIndex()
+            === index
+          "
+        (click)="
+            selectProgram(index)
+          "
+      >
+        <span class="tab-number"> {{ index + 1 }} </span>
+
+        <span class="tab-copy">
+          <strong> {{ program.title }} </strong>
+
+          <small> {{ program.subtitle }} </small>
+        </span>
+      </button>
+
+      }
+    </nav>
+
+    <!-- =====================================
+         PROGRAM
+         ===================================== -->
+
+    <section
+      class="program-card"
+      (touchstart)="
+        onTouchStart($event)
+      "
+      (touchmove)="
+        onTouchMove($event)
+      "
+      (touchend)="
+        onTouchEnd()
+      "
+    >
+      <header class="program-header">
+        <div>
+          <span class="program-label">
+            PROGRAM {{ selectedProgramIndex() + 1 }} OF {{ programs.length }}
+          </span>
+
+          <h2>{{ selectedProgram().title }}</h2>
+
+          <h3>{{ selectedProgram().subtitle }}</h3>
+
+          <p>{{ selectedProgram().description }}</p>
+        </div>
+
+        <div class="progress-circle">
+          <strong> {{ progressPercent() }}% </strong>
+
+          <span> Complete </span>
+        </div>
+      </header>
+
+      <!-- =====================================
+           PROGRESS
+           ===================================== -->
+
+      <div class="progress-section">
+        <div class="progress-heading">
+          <span> Workout Progress </span>
+
+          <strong> {{ completedCount() }} / {{ totalExercises() }} </strong>
+        </div>
+
+        <div class="progress-track">
+          <div
+            class="progress-fill"
+            [style.width.%]="
+              progressPercent()
+            "
+          ></div>
+        </div>
+      </div>
+
+      <!-- =====================================
+           EXERCISES
+
+           NO GOOGLE <img> HERE.
+           ===================================== -->
+
+      <div class="exercise-list">
+        @for ( exercise of selectedProgram().exercises; track exercise.id; let
+        index = $index ) {
+
+        <article
+          class="exercise-row"
+          [class.completed]="
+              isCompleted(exercise)
+            "
+        >
+          <label
+            class="exercise-check"
+            (click)="
+                $event.stopPropagation()
+              "
+          >
+            <input
+              type="checkbox"
+              [checked]="
+                  isCompleted(exercise)
+                "
+              (change)="
+                  toggleExercise(
+                    exercise,
+                    $any(
+                      $event.target
+                    ).checked
+                  )
+                "
+            />
+
+            <span class="check-box"> ✓ </span>
+          </label>
+
+          <button
+            type="button"
+            class="exercise-content"
+            (click)="
+                openExercise(
+                  exercise
+                )
+              "
+          >
+            <span class="exercise-number"> {{ index + 1 }} </span>
+
+            <span class="exercise-main">
+              <strong> {{ exercise.name }} </strong>
+
+              <span class="exercise-stats">
+                <span>
+                  <small> SETS </small>
+
+                  <b> {{ exercise.sets }} </b>
+                </span>
+
+                <i></i>
+
+                <span>
+                  <small> REPS </small>
+
+                  <b> {{ exercise.reps }} </b>
+                </span>
+              </span>
+            </span>
+
+            @if ( exercise.imageId ) {
+
+            <span class="view-label"> View </span>
+
+            <span class="arrow"> › </span>
+
+            }
+          </button>
+        </article>
+
+        }
+      </div>
+
+      <!-- =====================================
+           PROGRAM NAVIGATION
+           ===================================== -->
+
+      <footer class="program-actions">
+        <button
+          type="button"
+          (click)="
+            previousProgram()
+          "
+        >
+          ← Previous
+        </button>
+
+        <button
+          type="button"
+          class="reset-checks"
+          (click)="
+            resetProgram()
+          "
+        >
+          Reset Checks
+        </button>
+
+        <button
+          type="button"
+          class="next"
+          (click)="
+            nextProgram()
+          "
+        >
+          Next →
+        </button>
+      </footer>
+    </section>
+
+    <!-- DOTS -->
+
+    <div class="program-dots">
+      @for ( program of programs; track program.id; let index = $index ) {
+
+      <button
+        type="button"
+        [class.active]="
+            selectedProgramIndex()
+            === index
+          "
+        [attr.aria-label]="
+            'Open ' +
+            program.title
+          "
+        (click)="
+            selectProgram(index)
+          "
+      ></button>
+
+      }
+    </div>
+  </div>
+
+  <!-- =====================================
+       EXERCISE MODAL
+
+       ONLY GOOGLE IMAGE IN COMPONENT.
+       ===================================== -->
+
+  @if ( selectedExercise(); as exercise ) {
+
+  <div
+    class="modal-backdrop"
+    (click)="
+        closeExercise()
+      "
+  >
+    <section
+      class="exercise-modal"
+      (click)="
+          $event.stopPropagation()
+        "
+    >
+      <header class="modal-header">
+        <div>
+          <span> STRENGTH EXERCISE </span>
+
+          <h3>{{ exercise.name }}</h3>
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          aria-label="Close"
+          (click)="
+              closeExercise()
+            "
+        >
+          ×
+        </button>
+      </header>
+
+      <div class="image-container">
+        @if ( imageLoading() ) {
+
+        <div class="image-state">
+          <span class="spinner"> </span>
+
+          <p>Loading exercise...</p>
+        </div>
+
+        } @if ( selectedExerciseImage() && !imageError() ) {
+
+        <img
+          [src]="
+                selectedExerciseImage()
+              "
+          [alt]="exercise.name"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+        />
+
+        } @if ( imageError() ) {
+
+        <div class="image-state error">
+          <strong> Image unavailable </strong>
+
+          <p>Google Drive could not load this exercise image.</p>
+
+          <button
+            type="button"
+            (click)="
+                  retryImage()
+                "
+          >
+            Retry
+          </button>
+        </div>
+
+        } @if ( !exercise.imageId ) {
+
+        <div class="image-state">
+          <strong> No exercise image available </strong>
+        </div>
+
+        }
+      </div>
+
+      <div class="modal-details">
+        <div>
+          <span> Sets </span>
+
+          <strong> {{ exercise.sets }} </strong>
+        </div>
+
+        <div>
+          <span> Reps </span>
+
+          <strong> {{ exercise.reps }} </strong>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  }
+</section>
